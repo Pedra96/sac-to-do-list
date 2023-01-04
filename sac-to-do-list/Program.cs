@@ -17,9 +17,8 @@ questa operazione si può svolgere solo su attività che sono ancora da fare)
 funzionalità desiderabile ma opzionale)
 0 - chiudere il programma*/
 
-Attivita Attivita= new Attivita();
-
-string print = "1 - visualizzare la lista delle attività\n" +
+using (AttivitaContext db = new AttivitaContext()) {
+    string print = "1 - visualizzare la lista delle attività\n" +
     "2 - aggiungere una nuova attività alla lista\n" +
     "3 - rimuovere un'attività dalla lista\n" +
     "4 - modificare il testo di un'attività inserita precedentemente\n" +
@@ -28,7 +27,10 @@ string print = "1 - visualizzare la lista delle attività\n" +
     "7 - visualizzare solo le attività ancora da fare, paginate di 3 in 3\n" +
     "0 - chiudere il programma\n" +
     "Inserire il numero dell'azione che desidera fare:";
-Console.WriteLine(print);
-string userinput = Console.ReadLine();
+    Console.WriteLine(print);
+    /*
+    string userinput = Console.ReadLine();
 
-Functions.AzioniUtente(userinput);
+    Functions.AzioniUtente(userinput);*/
+}
+

@@ -1,19 +1,25 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace sac_to_do_list {
-    public class Attivita {
-        public int id;
-        public string nome;
-        public string desc;
-        public bool fatto;
-        public DateTime dataScadenza;       
-        public string incaricato;
 
-        public Attivita() { }
+    [Table("Attività")]
+    public class Attivita {
+        [Key]
+        public int AttivitaId { get; set;}
+        [Required]
+        public string Nome { get; set; }
+        public string Desc { get; set; }
+        [Required]
+        public bool Fatto { get; set; }
+        public DateTime DataScadenza { get; set; }
+        public string Incaricato { get; set; }
 
         /* public Attivita(string nome, string desc, string dataScadenza, string incaricato, bool fatto = false)
         {
@@ -23,8 +29,7 @@ namespace sac_to_do_list {
             this.fatto = fatto;
             this.incaricato = incaricato;
             SetScadenza(dataScadenza);
-        }
-
+        }       
 
         GETTERS
         public string GetNome()
@@ -74,7 +79,7 @@ namespace sac_to_do_list {
         public void SetIncaricato(string incaricato)
         {
             this.incaricato = incaricato;
-        }*/
+        }
 
 
         public override string ToString() {
@@ -92,7 +97,7 @@ namespace sac_to_do_list {
                 result += @$"Stato: è da fare";
             }
             return result;
-        }
+        }*/
 
     }
 }
