@@ -28,9 +28,17 @@ using (AttivitaContext db = new AttivitaContext()) {
     "0 - chiudere il programma\n" +
     "Inserire il numero dell'azione che desidera fare:";
     Console.WriteLine(print);
-    /*
+
     string userinput = Console.ReadLine();
 
-    Functions.AzioniUtente(userinput);*/
+    Functions.AzioniUtente(userinput);
+    Console.WriteLine("desidera fare altro?");
+    userinput= Console.ReadLine();
+
+    if(userinput.ToLower() == "si") {
+        Console.WriteLine(print);
+        userinput = Console.ReadLine();
+        Functions.AzioniUtente(userinput);
+    }
 }
 

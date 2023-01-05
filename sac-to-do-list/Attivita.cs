@@ -19,76 +19,61 @@ namespace sac_to_do_list {
         [Required]
         public bool Fatto { get; set; }
         public DateTime DataScadenza { get; set; }
+
         public string Incaricato { get; set; }
 
-        /* public Attivita(string nome, string desc, string dataScadenza, string incaricato, bool fatto = false)
+        public Attivita() { }
+
+        public Attivita(string nome, string dataScadenza, string incaricato, string descrizione="", bool fatto = false)
         {
 
-            this.nome = nome;
-            this.desc = desc;
-            this.fatto = fatto;
-            this.incaricato = incaricato;
+            this.Nome = nome;
             SetScadenza(dataScadenza);
-        }       
+            this.Incaricato = incaricato;
+            SetDescrizione(descrizione);
+            this.Fatto = fatto;
 
-        GETTERS
-        public string GetNome()
-        {
-            return nome;
-        }
-        public string GetDescrizione()
-        {
-            return desc;
-        }
-        public bool GetStato()
-        {
-            return fatto;
         }
 
-        public DateTime GetScadenza()
-        {
-            return dataScadenza;
-        }
-
-        public string GetIncaricato()
-        {
-            return incaricato;
-        }
-
-        SETTERS
-        public void SetNome(string nome)
-        {
-            this.nome = nome;
-        }
-
-        public void SetDescrizione(string desc)
-        {
-            this.desc = desc;
-        }
-
-        public void SetStato(bool fatto) 
-        { 
-            this.fatto = fatto;
-        }
-
+        //SETTERS
         public void SetScadenza(string dataScadenza)
         {
-            this.dataScadenza = DateTime.Parse(dataScadenza);
+            DateTime DataScadenza = DateTime.Parse(dataScadenza);
+            if (DataScadenza > DateTime.Now)
+            {
+                this.DataScadenza = DataScadenza;
+                Console.WriteLine("la data di scadenza è giusto");
+            }
+            else
+            {
+                throw new Exception("la data che hai inserito è gia passato");
+            }
         }
 
         public void SetIncaricato(string incaricato)
         {
-            this.incaricato = incaricato;
+
+            this.Incaricato = incaricato;
+        }
+
+        public void SetDescrizione(string descrizione)
+        {
+            this.Desc = descrizione;
+
         }
 
 
+
+
+
         public override string ToString() {
-            string result = @$"Titolo: {this.nome}
-            Descrizione: {this.desc} 
-            Persona Incaricata: {this.incaricato}
-            Data di Scadenza: {this.dataScadenza}
+            string result = @$"Titolo: {this.Nome}
+            ID Attività: {this.AttivitaId}
+            Descrizione: {this.Desc} 
+            Persona Incaricata: {this.Incaricato}
+            Data di Scadenza: {this.DataScadenza}
             ";
-            if (this.fatto)
+            if (this.Fatto)
             {
                 result += @$"Stato: è gia fatto";
             }
@@ -97,7 +82,7 @@ namespace sac_to_do_list {
                 result += @$"Stato: è da fare";
             }
             return result;
-        }*/
+        }
 
     }
 }

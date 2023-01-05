@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace sac_to_do_list {
     public static class Functions {
         //creare funzioni:
-        //stampare la lista
-        //aggiungere un elemento alla lista
+        //V. stampare la lista
+        //V. aggiungere un elemento alla lista
         //rimuovere un elemento dalla lista
-        //modificare il test
+        //modificare il testo
         //modificare lo status
         //aggiungere o modificare la data di scadenza
         //stampare la lista con lo status "da fare"  
@@ -23,13 +23,18 @@ namespace sac_to_do_list {
                             break;
                         case 1:
                             Console.WriteLine("Ecco la lista delle attività:");
+                            MostraAttività();
                             break;
                         case 2:
+                            AggiungereAttività();
                             Console.WriteLine("l'attività è stata aggiunta con successo");
 
                             break;
                         case 3:
-                            Console.WriteLine("l'attività è stata rimossa con successo");
+                            MostraAttività();
+                            Console.WriteLine("Inserire ID dell'attività che si vuole eliminare"); 
+                            int InputUtente=int.Parse(Console.ReadLine());
+                            RimuovereAttività(InputUtente);
                             break;
                         case 4:
                             Console.WriteLine("modificato il testo dell'attvità scelta");
@@ -55,16 +60,77 @@ namespace sac_to_do_list {
                 }
             }
         }
-        /*
-        public static void MostraAttivitàDellaLista(List<Attivita> lista)
-        {
-            foreach(var Attivita in lista)
-                {
-                Console.WriteLine(Attivita);
+
+        public static void MostraAttività() {
+            using (AttivitaContext db = new AttivitaContext()) {
+                List<Attivita> listaGiocatoriDB = db.Attività.ToList<Attivita>();
+                foreach (Attivita attività in listaGiocatoriDB) {
+                    Console.WriteLine(attività);
+                }
             }
         }
-        */
 
+        public static void AggiungereAttività() {
+            using (AttivitaContext db = new AttivitaContext()) {
+                Console.WriteLine("Scegli il nome dell'attività");
+                string nome = Console.ReadLine();
+                Console.WriteLine("Chi è persona incaricata?");
+                string personaIncaricata = Console.ReadLine();
+                Console.WriteLine("inserisci la data di scadenza");
+                string dataScadenza = Console.ReadLine();
+
+
+                Console.WriteLine("vuoi inserire anche la descrizione? si/no");
+                string risposta = Console.ReadLine();
+                if (risposta.Trim() == "si") {
+                    Console.WriteLine("inserisci la descrizione");
+                    string descrizione = Console.ReadLine();
+
+                    Attivita nuovaAttività = new Attivita(nome, dataScadenza, personaIncaricata, descrizione);
+                    db.Add(nuovaAttività);
+                    db.SaveChanges();
+                    MostraAttività();
+                } else {
+                    Attivita nuovaAttività = new Attivita(nome, dataScadenza, personaIncaricata);
+                    db.Add(nuovaAttività);
+                    db.SaveChanges();
+                    MostraAttività();
+                }
+
+            }
+        }
+
+        static public void RimuovereAttività(int AttivitàIdDaCancellare)
+        {
+            using (AttivitaContext db = new AttivitaContext())
+            {
+                List<Attivita> listaAttività = db.Attività.ToList<Attivita>();
+                foreach (Attivita elemento in listaAttività)
+                {
+                    if (elemento.AttivitaId == AttivitàIdDaCancellare)
+                    {
+                        db.Remove(elemento);
+                        db.SaveChanges();
+
+                        Console.WriteLine("cancellato l'attività");
+                        MostraAttività();
+                    }
+                }
+            }
+        }
+
+        static public void ModifDescAttività(string nuovaDescrizione, int AttivitàId)
+        {
+            using (AttivitaContext db = new AttivitaContext())
+            {
+                List<Attivita> listaAttività = db.Attività.ToList<Attivita>();
+                foreach (Attivita elemento in listaAttività)
+                {
+                    elemento.SetDescrizione(nuovaDescrizione);
+                    db.SaveChanges();
+                }
+            }
+        }
 
     }
 }
