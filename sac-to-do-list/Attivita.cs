@@ -62,7 +62,9 @@ namespace sac_to_do_list {
 
         }
 
-
+        public string GetData() {
+            return DataScadenza.ToShortDateString();
+        }
 
 
 
@@ -71,7 +73,7 @@ namespace sac_to_do_list {
             ID Attività: {this.AttivitaId}
             Descrizione: {this.Desc} 
             Persona Incaricata: {this.Incaricato}
-            Data di Scadenza: {this.DataScadenza}
+            Data di Scadenza: {GetData()}
             ";
             if (this.Fatto)
             {

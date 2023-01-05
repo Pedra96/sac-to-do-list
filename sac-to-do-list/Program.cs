@@ -32,13 +32,15 @@ using (AttivitaContext db = new AttivitaContext()) {
     string userinput = Console.ReadLine();
 
     Functions.AzioniUtente(userinput);
-    Console.WriteLine("desidera fare altro?");
-    userinput= Console.ReadLine();
-
-    if(userinput.ToLower() == "si") {
-        Console.WriteLine(print);
-        userinput = Console.ReadLine();
-        Functions.AzioniUtente(userinput);
-    }
+    string flag="";
+    do {
+        Console.WriteLine("desidera fare altro?");
+        flag = Console.ReadLine();
+        if (flag.ToLower() == "si") {
+            Console.WriteLine(print);
+            userinput = Console.ReadLine();
+            Functions.AzioniUtente(userinput);
+        }
+    } while (flag.ToLower() == "si");
 }
 

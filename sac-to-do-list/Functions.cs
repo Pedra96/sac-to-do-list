@@ -9,8 +9,8 @@ namespace sac_to_do_list {
         //creare funzioni:
         //V. stampare la lista
         //V. aggiungere un elemento alla lista
-        //rimuovere un elemento dalla lista
-        //modificare il testo
+        //V. rimuovere un elemento dalla lista
+        //V. modificare il testo
         //modificare lo status
         //aggiungere o modificare la data di scadenza
         //stampare la lista con lo status "da fare"  
@@ -37,10 +37,14 @@ namespace sac_to_do_list {
                             RimuovereAttività(InputUtente);
                             break;
                         case 4:
-                            Console.WriteLine("modificato il testo dell'attvità scelta");
+                            MostraAttività();
+                            Console.WriteLine("Inserire ID dell'attività che si vuole modificare");
+                            InputUtente = int.Parse(Console.ReadLine());
+                            ModifDescAttività(InputUtente);
                             break;
+                            //case 5 e 6 verranno eliminate ed unite alla funzione per modificare l'attività.
                         case 5:
-                            Console.WriteLine("modificato lo stato dell'attvità scelta");
+                            Console.WriteLine("modificato lo stato dell'attività scelta");
                             break;
                         case 6:
                             Console.WriteLine("modificata o aggiunta la data ad un attività precedente");
@@ -118,17 +122,26 @@ namespace sac_to_do_list {
                 }
             }
         }
-
-        static public void ModifDescAttività(string nuovaDescrizione, int AttivitàId)
+        //questa funzione diventerà una funzione di modifica generale
+        static public void ModifDescAttività(int AttivitàId)
         {
+            string nuovaDescrizione="";
+            Console.WriteLine("Inserire nuova descrizione");
+            nuovaDescrizione = Console.ReadLine();
+            
             using (AttivitaContext db = new AttivitaContext())
             {
                 List<Attivita> listaAttività = db.Attività.ToList<Attivita>();
                 foreach (Attivita elemento in listaAttività)
                 {
-                    elemento.SetDescrizione(nuovaDescrizione);
-                    db.SaveChanges();
+                    if (AttivitàId == elemento.AttivitaId)
+                    {
+                        elemento.SetDescrizione(nuovaDescrizione);
+                        db.SaveChanges();
+                        Console.WriteLine("Modificata eseguita nuova descrizione " + elemento.Desc);
+                    }     
                 }
+                
             }
         }
 
