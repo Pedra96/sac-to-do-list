@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sac_to_do_list;
 
@@ -11,9 +12,11 @@ using sac_to_do_list;
 namespace sactodolist.Migrations
 {
     [DbContext(typeof(AttivitaContext))]
-    partial class AttivitaContextModelSnapshot : ModelSnapshot
+    [Migration("20230111142259_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,12 +30,12 @@ namespace sactodolist.Migrations
                     b.Property<int>("AttivitàAttivitaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DipendenteId")
+                    b.Property<int>("IncaricatoDipendenteId")
                         .HasColumnType("int");
 
-                    b.HasKey("AttivitàAttivitaId", "DipendenteId");
+                    b.HasKey("AttivitàAttivitaId", "IncaricatoDipendenteId");
 
-                    b.HasIndex("DipendenteId");
+                    b.HasIndex("IncaricatoDipendenteId");
 
                     b.ToTable("AttivitaDipendente");
                 });
@@ -63,7 +66,7 @@ namespace sactodolist.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttivitaId"));
 
-                    b.Property<int?>("ClienteId")
+                    b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataScadenza")
@@ -142,16 +145,20 @@ namespace sactodolist.Migrations
 
                     b.HasOne("sac_to_do_list.Dipendente", null)
                         .WithMany()
-                        .HasForeignKey("DipendenteId")
+                        .HasForeignKey("IncaricatoDipendenteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("sac_to_do_list.Attivita", b =>
                 {
-                    b.HasOne("sac_to_do_list.Cliente", null)
+                    b.HasOne("sac_to_do_list.Cliente", "Cliente")
                         .WithMany("Attivita")
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
                 });
 
             modelBuilder.Entity("sac_to_do_list.Cliente", b =>

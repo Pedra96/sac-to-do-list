@@ -21,26 +21,15 @@ using (AttivitaContext db = new AttivitaContext()) {
     string print = "1 - visualizzare la lista delle attività\n" +
     "2 - aggiungere una nuova attività alla lista\n" +
     "3 - rimuovere un'attività dalla lista\n" +
-    "4 - modificare il testo di un'attività inserita precedentemente\n" +
-    "5 - modificare lo stato di un'attività inserita precedentemente\n" +
-    "6 - aggiungere o modificare una data ad un'attività inserita precedentemente\n" +
-    "7 - visualizzare solo le attività ancora da fare, paginate di 3 in 3\n" +
+    "4 - modificare un'attività inserita precedentemente\n" +
+    "5 - visualizzare solo le attività ancora da fare\n" +
     "0 - chiudere il programma\n" +
     "Inserire il numero dell'azione che desidera fare:";
     Console.WriteLine(print);
 
     string userinput = Console.ReadLine();
-
     Functions.AzioniUtente(userinput);
-    string flag="";
-    do {
-        Console.WriteLine("desidera fare altro?");
-        flag = Console.ReadLine();
-        if (flag.ToLower() == "si") {
-            Console.WriteLine(print);
-            userinput = Console.ReadLine();
-            Functions.AzioniUtente(userinput);
-        }
-    } while (flag.ToLower() == "si");
+
+
 }
 
